@@ -3,7 +3,7 @@
 
 <div class="conatiner">
     <div class="row">
-        @forelse ($projects as $project)
+        {{-- @forelse ($projects as $project)
         <div class="col">
             <div class="card">
                 <img class="card-img-top" src="{{$project->cover_image}}" alt="Title">
@@ -15,7 +15,8 @@
         </div>
         @empty
         <strong>No project to show yet</strong>
-        @endforelse
+        @endforelse --}}
+        <h1 class="text-center mt-5">Welcome</h1>
     </div>
 </div>
 
