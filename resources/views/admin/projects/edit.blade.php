@@ -13,7 +13,7 @@
 
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelper" placeholder="Learn php">
+        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" aria-describedby="titleHelper" placeholder="Learn php" value='{{ old('title' $project->title) }}'>
         <small id="titleHelper" class="form-text text-muted">Type the post title max 150 characters - must be unique</small>
     </div>
     <div class="mb-3">
@@ -31,6 +31,16 @@
             <option value="">Jakarta</option>
         </select>
     </div>
+
+    <div class="form-group">
+        <label for="technologies">Technologies</label>
+        <select name="technologies[]" multiple class="form-control">
+            @foreach ($technologies as $technology)
+                <option value="{{ $technology->id }}" {{ in_array($technology->id, $selectedTechnologies) ? 'selected' : '' }}>
+                    {{ $technology->name }}
+                </option>
+            @endforeach
+        </select>
 
     <div class="mb-3">
         <label for="content" class="form-label">Content</label>

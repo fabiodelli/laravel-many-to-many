@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use App\Models\Project;
 use App\Models\Type;
 
@@ -19,12 +20,16 @@ class ProjectController extends Controller
 
 
     public function create()
-    {
-        return view('admin.projects.create');
-    }
+{
+    $technologies = Technology::all();
+    $selectedTechnologies = [];
+
+    return view('admin.projects.create', compact('technologies', 'selectedTechnologies'));
+}
 
 
-    public function store(StoreProjectRequest $request)
+
+    public function store(StoreProjectRequest $request, Project $projects)
     {
 
         $val_data = $request->validated();
@@ -33,7 +38,14 @@ class ProjectController extends Controller
 
         $val_data['slug'] = $slug;
 
-        Project::create($val_data);
+        $project = Project::create($val_data);
+
+        $technologies = $request->input('technologies', []);
+
+        if (!empty($technologies)) {
+            $project->technologies()->attach($technologies);
+        }
+    
 
         return to_route('admin.projects.index')->with('message', 'Project Created Successfully');
     }
@@ -41,35 +53,42 @@ class ProjectController extends Controller
 
     public function show(Project $projects)
     {
-        //dd($projects->slug);
-        return view('admin.projects.show', compact('projects'));
+        $technologies = $projects->technologies;
+        return view('admin.projects.show', compact('projects', 'technologies'));
     }
 
 
     public function edit(Project $project)
     {
         $types = Type::orderByDesc('id')->get();
-        return view('admin.projects.edit',compact('project','types'));
+        $technologies = Technology::all();
+        $selectedTechnologies = $project->technologies()->pluck('id')->toArray();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'selectedTechnologies'));
     }
 
-
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $projects)
     {
         $val_data = $request->validated();
 
         $slug = Project::generateSlug($val_data['title']);
-        
-        $val_data['slug'] = $slug;
-        
-        $project->update($val_data);
 
-        return to_route('admin.projects.index')->with('message', 'Project: ' . $project->title . 'Updated');
+        $val_data['slug'] = $slug;
+
+        $projects->update($val_data);
+
+        $technologies = $request->input('technologies', []);
+
+        $projects->technologies()->sync($technologies);
+
+        return to_route('admin.projects.index')->with('message', 'Project: ' . $projects->title . 'Updated');
     }
 
 
-    public function destroy(Project $project)
+    public function destroy(Project $projects)
     {
-        $project -> delete();
-        return to_route('admin.projects.index')->with('message','project:' . $project -> title. 'Deleted');
+
+        $projects->delete();
+        return to_route('admin.projects.index')->with('message', 'project:' . $projects->title . 'Deleted');
     }
 }

@@ -32,6 +32,19 @@
         </select>
     </div>
 
+    <div class="form-group">
+    <label for="technologies">Technologies</label>
+    <select name="technologies[]" multiple class="form-control">
+        @foreach ($technologies as $technology)
+            <option value="{{ $technology->id }}" {{ in_array($technology->id, $selectedTechnologies) ? 'selected' : '' }}>
+                {{ $technology->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+    
+
     <div class="mb-3">
         <label for="content" class="form-label">Content</label>
         <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" rows="3"></textarea>

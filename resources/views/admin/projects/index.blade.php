@@ -16,7 +16,7 @@
             <thead class="table-light">
 
                 <tr>
-                    <th>ID</th>
+                    <th>ID</i></th>
                     <th>TITLE</th>
                     <th>IMG</th>
                     <th>SLUG</th>
@@ -71,7 +71,7 @@
 
 
                                             <form action="{{ route('admin.projects.destroy', $project) }}"
-                                                method="project">
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Confirm</button>

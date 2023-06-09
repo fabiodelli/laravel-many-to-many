@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth','verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
+    // qui dovrebbe essere project e non projects
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'projects:slug']);
 });
 
