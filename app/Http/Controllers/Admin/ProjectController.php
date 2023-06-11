@@ -45,6 +45,11 @@ class ProjectController extends Controller
         if (!empty($technologies)) {
             $project->technologies()->attach($technologies);
         }
+        $types = $request->input('types', []);
+
+        if (!empty($types)) {
+            $project->types()->attach($types);
+        }
     
 
         return to_route('admin.projects.index')->with('message', 'Project Created Successfully');
@@ -52,19 +57,19 @@ class ProjectController extends Controller
 
 
     public function show(Project $projects)
-    {
+    {   $types = $projects->type;
         $technologies = $projects->technologies;
-        return view('admin.projects.show', compact('projects', 'technologies'));
+        return view('admin.projects.show', compact('projects', 'technologies','types'));
     }
 
 
-    public function edit(Project $project)
+    public function edit(Project $projects)
     {
         $types = Type::orderByDesc('id')->get();
         $technologies = Technology::all();
-        $selectedTechnologies = $project->technologies()->pluck('id')->toArray();
+        $selectedTechnologies = $projects->technologies()->pluck('id')->toArray();
 
-        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'selectedTechnologies'));
+        return view('admin.projects.edit', compact('projects', 'types', 'technologies', 'selectedTechnologies'));
     }
 
     public function update(UpdateProjectRequest $request, Project $projects)
@@ -80,6 +85,10 @@ class ProjectController extends Controller
         $technologies = $request->input('technologies', []);
 
         $projects->technologies()->sync($technologies);
+        
+        $types = $request->input('types', []);
+
+        $projects->type()->associate($types);
 
         return to_route('admin.projects.index')->with('message', 'Project: ' . $projects->title . 'Updated');
     }

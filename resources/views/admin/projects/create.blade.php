@@ -33,15 +33,20 @@
     </div>
 
     <div class="form-group">
-    <label for="technologies">Technologies</label>
-    <select name="technologies[]" multiple class="form-control">
-        @foreach ($technologies as $technology)
-            <option value="{{ $technology->id }}" {{ in_array($technology->id, $selectedTechnologies) ? 'selected' : '' }}>
-                {{ $technology->name }}
-            </option>
-        @endforeach
-    </select>
-</div>
+        <label class="mb-2" for="technologies">Technologies</label>
+        <br>
+            @foreach ($technologies as $technology)
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}"
+                        id="technology_{{ $technology->id }}"
+                        {{ in_array($technology->id, $selectedTechnologies) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="technology_{{ $technology->id }}">
+                        {{ $technology->name }}
+                    </label>
+                </div>
+            @endforeach
+        
+    </div>
 
     
 

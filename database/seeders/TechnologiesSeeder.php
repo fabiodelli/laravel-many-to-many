@@ -16,39 +16,39 @@ class TechnologiesSeeder extends Seeder
         $technologies = [
             [
                 'name' => 'HTML',
-                'logo' => '<i class="fa-brands fa-html5"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/800px-HTML5_logo_and_wordmark.svg.png',
             ],
             [
                 'name' => 'CSS',
-                'logo' => '<i class="fa-brands fa-css3-alt"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png',
             ],
             [
                 'name' => 'JAVASCRIPT',
-                'logo' => '<i class="fa-brands fa-js">',
+                'logo' => 'https://pluralsight2.imgix.net/paths/images/javascript-542e10ea6e.png',
             ],
             [
                 'name' => 'VUE JS',
-                'logo' => '<i class="fa-brands fa-vuejs"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png',
             ],
             [
                 'name' => 'SASS',
-                'logo' => '<i class="fa-brands fa-sass"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1200px-Sass_Logo_Color.svg.png',
             ],
             [
                 'name' => 'LARAVEL',
-                'logo' => '<i class="fa-brands fa-laravel"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png',
             ],
             [
                 'name' => 'BOOTSTRAP',
-                'logo' => '<i class="fa-brands fa-bootstrap"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1200px-Bootstrap_logo.svg.png',
             ],
             [
                 'name' => 'VITE',
-                'logo' => '<i class="fa-brands fa-vimeo"></i>',
+                'logo' => 'https://camo.githubusercontent.com/61e102d7c605ff91efedb9d7e47c1c4a07cef59d3e1da202fd74f4772122ca4e/68747470733a2f2f766974656a732e6465762f6c6f676f2e737667',
             ],
             [
                 'name' => 'PHP',
-                'logo' => '<i class="fa-brands fa-php"></i>',
+                'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/260px-PHP-logo.svg.png',
             ],
            
             
