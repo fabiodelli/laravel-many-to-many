@@ -20,12 +20,14 @@ class ProjectController extends Controller
 
 
     public function create()
-{
-    $technologies = Technology::all();
-    $selectedTechnologies = [];
+    {
+        $technologies = Technology::all();
+        $selectedTechnologies = [];
+        $types = Type::all();
+        $selectedTypes = [];
 
-    return view('admin.projects.create', compact('technologies', 'selectedTechnologies'));
-}
+        return view('admin.projects.create', compact('technologies', 'selectedTechnologies', 'types', 'selectedTypes'));
+    }
 
 
 
@@ -40,26 +42,33 @@ class ProjectController extends Controller
 
         $project = Project::create($val_data);
 
+
         $technologies = $request->input('technologies', []);
 
         if (!empty($technologies)) {
             $project->technologies()->attach($technologies);
         }
-        $types = $request->input('types', []);
 
-        if (!empty($types)) {
-            $project->types()->attach($types);
+        $typeId = $request->input('type_id');
+        if ($typeId) {
+            $type = Type::find($typeId);
+            if ($type) {
+                $project->type()->associate($type);
+                $project->save();
+            }
         }
-    
+
 
         return to_route('admin.projects.index')->with('message', 'Project Created Successfully');
     }
 
 
     public function show(Project $projects)
-    {   $types = $projects->type;
+    {
+        $types = $projects->type;
+
         $technologies = $projects->technologies;
-        return view('admin.projects.show', compact('projects', 'technologies','types'));
+        return view('admin.projects.show', compact('projects', 'technologies', 'types'));
     }
 
 
@@ -85,10 +94,19 @@ class ProjectController extends Controller
         $technologies = $request->input('technologies', []);
 
         $projects->technologies()->sync($technologies);
-        
-        $types = $request->input('types', []);
 
-        $projects->type()->associate($types);
+        $typeId = $request->input('type_id');
+        if ($typeId) {
+            $type = Type::find($typeId);
+            if ($type) {
+                $projects->type()->associate($type);
+                $projects->save();
+            }
+        } else {
+            $projects->type()->dissociate();
+            $projects->save();
+        }
+
 
         return to_route('admin.projects.index')->with('message', 'Project: ' . $projects->title . 'Updated');
     }
