@@ -45,7 +45,7 @@
             <br>
             @foreach ($types as $type)
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="types[]" value="{{ $type->id }}"
+                    <input class="form-check-input" type="checkbox" name="type->id" value="{{ $type->id }}"
                         id="type_{{ $type->id }}" {{ in_array($type->id, $selectedTypes) ? 'checked' : '' }}>
                     <label class="form-check-label" for="type_{{ $type->id }}">
                         {{ $type->type }}
